@@ -1,0 +1,14 @@
+<h2>Create Estimate</h2>
+
+<div *ngFor="let line of estimateLines; let i = index">
+    <app-create-line [estimateLine]="line" 
+                    [index]="i"
+                    (estimateLineChanged)="handleEstimateLineChanged($event)" 
+                    (estimateLineDeleted)="handleEstimateLineDeleted($event)">
+    </app-create-line>
+  </div>
+  
+  <button (click)="addEstimateLine()">Add Line</button>
+  <button (click)="verifier()">verifier</button>
+
+

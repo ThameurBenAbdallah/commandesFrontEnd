@@ -1,0 +1,38 @@
+
+  <div class="row">
+
+                  <form class="row">
+                      <div class="col-sm-3">
+                          <label for="txtName" class="form-label">Name</label>
+                          <input type="text" name="name" [(ngModel)]="estimateLine.product.id" class="form-control" id="txtName" />
+                      </div>
+                      <div class="col-sm-3">
+                          <label for="txtDescription" class="form-label">Description</label>
+                          <input type="text" name="description" [(ngModel)]="estimateLine.product.name" class="form-control" id="txtDescription" />
+                      </div>
+                      <div class="col-sm-2">
+                          <label for="txtTax" class="form-label">Tax</label>
+                          <input type="number" name="tax" [(ngModel)]="estimateLine.product.tax" class="form-control" id="txtTax" />
+                      </div>
+                      <div class="col-sm-2">
+                          <label for="txtPrice" class="form-label">Price</label>
+                          <input type="number" name="price" [(ngModel)]="estimateLine.product.price" class="form-control" id="txtPrice" />
+                      </div>
+                      <div class="col-md-2">
+                          <label for="quantity" class="form-label">Quantity</label>
+                          <input type="number" name="quantity" [(ngModel)]="estimateLine.quantity" class="form-control" id="quantity" />
+                      </div>
+                      
+                       
+                    
+                    <div class="col-md-2">
+                        <div class="col-md-2">
+                        <a class="btn btn-primary rounded-0 btn-block" id="deleteRow" (click)="deletEstimateLine()">Delete</a>
+                        <a class="btn btn-primary rounded-0 btn-block" id="insertRow" >Add</a>
+                    </div>
+                    </div>
+
+                  </form>
+
+              </div>
+        
