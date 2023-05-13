@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Product } from './product';
 
@@ -16,9 +16,11 @@ export class ProductService {
   }
 
   create(payload: Product) {
-    return this.http.post<Product>(this.path, payload);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<Product>(this.path, payload, { headers });
   }
   getById(id: number) {
+    
     return this.http.get<Product>(`${this.path}/${id}`);
    }
     
