@@ -7,11 +7,19 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { ClientModule } from './client/client.module';
 import { EstimateModule } from './estimate/estimate.module';
+import { NgSelectModule } from '@ng-select/ng-select';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
     AppComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -19,7 +27,14 @@ import { EstimateModule } from './estimate/estimate.module';
     HttpClientModule,
     ProductModule,
     ClientModule,
-    EstimateModule
+    EstimateModule,
+    NgSelectModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    FormsModule,
+    MatInputModule,
+    BrowserAnimationsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

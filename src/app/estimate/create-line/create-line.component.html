@@ -2,37 +2,58 @@
   <div class="row">
 
                   <form class="row">
-                      <div class="col-sm-3">
-                          <label for="txtName" class="form-label">Name</label>
-                          <input type="text" name="name" [(ngModel)]="estimateLine.product.id" class="form-control" id="txtName" />
-                      </div>
-                      <div class="col-sm-3">
-                          <label for="txtDescription" class="form-label">Description</label>
-                          <input type="text" name="description" [(ngModel)]="estimateLine.product.name" class="form-control" id="txtDescription" />
-                      </div>
-                      <div class="col-sm-2">
+                   
+                   
+                   
+
+                    <!--
+                    <label for="txtName" class="form-label">Product</label>
+                    <input class="form-control" placeholder="Type to search..." [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="onSearchChange()" >
+                        <select [(ngModel)]="estimateLine.product" class="form-control" name="product">
+                        <option *ngFor="let product of filteredProducts" [value]="product" (change)="selectProduct($event)" >
+                            {{ product.name }}
+                        </option>
+                    </select>
+                -->
+                <form class="example-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                      <mat-label>Product</mat-label>
+                      <input type="text" matInput [formControl]="myControl" [(ngModel)]="selectedProduct" [matAutocomplete]="auto" (input)="filterProducts($event)" >
+                      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                  </form>
+                
+                    
+                      <div class="col-sm-1">
                           <label for="txtTax" class="form-label">Tax</label>
                           <input type="number" name="tax" [(ngModel)]="estimateLine.product.tax" class="form-control" id="txtTax" />
                       </div>
-                      <div class="col-sm-2">
+                      <div class="col-sm-1">
                           <label for="txtPrice" class="form-label">Price</label>
-                          <input type="number" name="price" [(ngModel)]="estimateLine.product.price" class="form-control" id="txtPrice" />
+                          <input disabled="true" type="number" name="price" [(ngModel)]="estimateLine.product.price" class="form-control" id="txtPrice" />
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-sm-1">
                           <label for="quantity" class="form-label">Quantity</label>
                           <input type="number" name="quantity" [(ngModel)]="estimateLine.quantity" class="form-control" id="quantity" />
                       </div>
                       
                        
                     
-                    <div class="col-md-2">
-                        <div class="col-md-2">
+                    <div class="col-sm-1">
+                        <div class="col-md-1">
                         <a class="btn btn-primary rounded-0 btn-block" id="deleteRow" (click)="deletEstimateLine()">Delete</a>
-                        <a class="btn btn-primary rounded-0 btn-block" id="insertRow" >Add</a>
+                        <a class="btn btn-primary rounded-0 btn-block" id="insertRow" (click)="updateEstimateLine()">Update</a>
                     </div>
                     </div>
 
                   </form>
 
               </div>
+
+              
+              <br>
         

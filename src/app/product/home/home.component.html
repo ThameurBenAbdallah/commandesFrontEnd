@@ -18,6 +18,7 @@
                 <th scope="col">Tax</th>
                 <th scope="col">Price</th>
                 <th scope="col">Category</th>
+                <th scope="col">Units</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@
                 <td>{{ item.price }}</td>
                 <td>{{ item.unitsInStock}}</td>
                 <td>{{ item.category.name }}</td>
+                <td>{{ item.unitsInStock }}</td>
                 <td>
                     <a class="btn btn-primary" [routerLink]="['/products/edit', item.id]">Edit</a> |
                     <button type="button" (click)="openDeleteModal(item.id)" class="btn btn-danger">Delete</button>

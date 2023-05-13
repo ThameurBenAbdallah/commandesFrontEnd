@@ -28,6 +28,9 @@ export class ProductService {
    delete(id:number){
     return this.http.delete<Product>(`${this.path}/${id}`);
  }
+ search(query: string){
+  return this.http.get<Product[]>(`${this.path}?query=${query}`);
+ }
 
 
 

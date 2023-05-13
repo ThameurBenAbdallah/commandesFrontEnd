@@ -4,7 +4,8 @@
     <app-create-line [estimateLine]="line" 
                     [index]="i"
                     (estimateLineChanged)="handleEstimateLineChanged($event)" 
-                    (estimateLineDeleted)="handleEstimateLineDeleted($event)">
+                    (estimateLineDeleted)="handleEstimateLineDeleted($event)"
+                    (productSelected)="handleProductSelected($event.lineIndex, $event.product )">
     </app-create-line>
   </div>
   
