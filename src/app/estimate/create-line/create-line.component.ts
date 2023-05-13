@@ -1,90 +1,156 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EstimateLine } from '../estimate-line';
-import { EstimateLineService } from '../estimate-line.service';
-import { Router } from '@angular/router';
 import { Product } from 'src/app/product/product';
 import { ProductService } from 'src/app/product/product.service';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+
+
+
 
 @Component({
   selector: 'app-create-line',
   templateUrl: './create-line.component.html',
   styleUrls: ['./create-line.component.css']
-})
+}
+)
 export class CreateLineComponent implements OnInit{
-  ngOnInit(): void {
-    //this.loadProducts();
+
+    products: Product[] = [];
+    filteredOptions!: Observable<Product[]>;
+    searchQuery: string = '';  
+    selectedProduct!: Product;
+    myControl = new FormControl('');
     
-  }
-
-  @Input() estimateLine!: EstimateLine ;
-  @Input() index!: number ;
-  @Output() estimateLineChanged = new EventEmitter<EstimateLine>();
-  @Output() estimateLineDeleted = new EventEmitter<number>();
-
-
-  
-
-/*
-
-  products: Product[] = [];
-  filteredProducts: Product[] = [];
-
-  
-  
-
-   */
-
-  /*constructor(
-    private estimateLineService: EstimateLineService,
-    private productService: ProductService,
- 
-    private router: Router
-  ) {}
-
-  loadProducts(): void {
-    // Load the products from the product service
-    this.productService.get().subscribe(
-      (data) => {
-        this.products = data;
-      }
-    );
     
-  }
-  filterProducts(searchTerm: string): void {
-    this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-  
-  create() {
-    this.estimateLineService.create(this.estimateLineForm).subscribe({
-      next: (data) => {
+    loadProducts(): void {
+      // Load the products from the product service
+      this.productService.get().subscribe(
+        (data) => {
+          this.products = data;
+          this.filteredOptions= of(data);
+        }
         
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+      );
+      
+      
+      
+    }
+
+    
+    
+    
+    ngOnInit(): void {
+      this.loadProducts();
+      console.log(this.index);
+      /*this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );*/
+    }
+
+
+    @Input() estimateLine!: EstimateLine ;
+    @Input() index!: number ;
+    @Output() estimateLineChanged = new EventEmitter<{lineIndex : number, estimateLine: EstimateLine}>();
+    @Output() estimateLineDeleted = new EventEmitter<number>();
+    @Output() productSelected = new EventEmitter<{lineIndex : number, product: Product}>()
+
+
+    
+
+    constructor(
+      
+      private productService: ProductService,
+  
+    
+    ) {}
+
+    private _filter(value: string): Product[] {
+      const filterValue = value.toString().toLowerCase();
+
+      return this.products.filter(product => product.name.toLowerCase().includes(filterValue));
+    }
+  
+
+    updateEstimateLine(): void {
+      this.estimateLineChanged.emit({lineIndex: this.index, estimateLine : this.estimateLine});
+    }
+    deletEstimateLine(): void {
+      alert(this.selectedProduct)
+      //this.estimateLineDeleted.emit(this.index);
+    }
+
+
+    selectProduct(e: any) {
+      if (e.target.checked)
+      this.estimateLine = { ...this.estimateLine, product: e.target.value };
+      console.log(this.estimateLine);
+      this.updateEstimateLine();
+
+    }
+
+  onOptionSelected(e: MatAutocompleteSelectedEvent): void {
+    const selectedOption = e.option.value;
+    this.estimateLine = { ...this.estimateLine, product: selectedOption };
+    console.log(this.estimateLine);
+    this.updateEstimateLine();
+    // Handle the selected option as needed
+  }
+  displayFn(product: Product): string {
+    return product && product.name ? product.name : '';
+  }
+    
+
+
+  //private searchTimeout: any;
+
+  filterProducts(searchTerm: Event): void {
+    const input = event?.target as HTMLInputElement;
+    
+    const inputValue = input.value;
+    console.log(inputValue)
+    this.filteredOptions = of(this.products.filter(product =>
+      product.name.toLowerCase().includes(inputValue.toLowerCase())
+    ))
   }
 
+  /*
   addEstimateLine(): void {
    
     const newEstimateLine: EstimateLine = this.estimateLineForm;
     this.estimateLineAdded.emit(newEstimateLine);
   }*/
-
-
-  verifier():void{
-    alert(this.estimateLine.quantity)
+/*
+  searchProducts(): void {
+    this.productService.search(this.searchQuery).subscribe({
+      next: (data) => {
+        const filteredProducts = data;
+        this.filteredProducts = filteredProducts;
+      },
+      error: (error) => {
+        alert("There was an error finding products");
+        console.log(error);
+      }
+    });
   }
+  
 
 
-  updateEstimateLine(): void {
-    this.estimateLineChanged.emit(this.estimateLine);
+  onSearchChange(): void {
+  clearTimeout(this.searchTimeout);
+  this.searchTimeout = setTimeout(() => {
+    this.searchProducts();
+  }, 300); 
+}*/
+ /*onSearchChange(): void {
+  
+    this.filterProducts(this.searchQuery)
   }
-  deletEstimateLine(): void {
-    this.estimateLineDeleted.emit(this.index);
-  }
+  */
+  
 
   
 }
