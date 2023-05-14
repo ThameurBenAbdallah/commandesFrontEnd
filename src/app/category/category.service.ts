@@ -23,13 +23,11 @@ export class CategoryService {
    }
     
    update(payload:Category){
-    return this.http.put(`${this.path}/${payload.id}`,payload);
+    return this.http.put(`${this.path}`,payload);
    }
    delete(id:number){
     return this.http.delete<Category>(`${this.path}/${id}`);
  }
-
-
 
 
 
