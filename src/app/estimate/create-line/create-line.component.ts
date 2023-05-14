@@ -4,8 +4,7 @@ import { Product } from 'src/app/product/product';
 import { ProductService } from 'src/app/product/product.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+
 
 
 
@@ -20,9 +19,8 @@ export class CreateLineComponent implements OnInit{
 
     @Input() estimateLine!: EstimateLine ;
     @Input() index!: number ;
-    @Output() estimateLineChanged = new EventEmitter<{lineIndex : number, estimateLine: EstimateLine}>();
+    //@Output() estimateLineChanged = new EventEmitter<{lineIndex : number, estimateLine: EstimateLine}>();
     @Output() estimateLineDeleted = new EventEmitter<number>();
-    @Output() productSelected = new EventEmitter<{lineIndex : number, product: Product}>()
     products: Product[] = [];
     filteredOptions!: Observable<Product[]>;
     searchQuery: string = '';
@@ -46,29 +44,13 @@ export class CreateLineComponent implements OnInit{
       console.log(this.index);
     }
 
-    updateEstimateLine(): void {
-      this.estimateLineChanged.emit({lineIndex: this.index, estimateLine : this.estimateLine});
-    }
+
 
     deletEstimateLine(): void {
       alert(this.selectedProduct)
       this.estimateLineDeleted.emit(this.index);
     }
-
-    selectProduct(e: any) {
-      if (e.target.checked)
-      this.estimateLine = { ...this.estimateLine, product: e.target.value };
-      console.log(this.estimateLine);
-      this.updateEstimateLine();
-    }
-
-    onOptionSelected(e: MatAutocompleteSelectedEvent): void {
-      const selectedOption = e.option.value;
-      this.estimateLine = { ...this.estimateLine, product: selectedOption };
-      console.log(this.estimateLine);
-      this.updateEstimateLine();
-    }
-
+   
     displayFn(product: Product): string {
       return product && product.name ? product.name : '';
     }
@@ -81,6 +63,27 @@ export class CreateLineComponent implements OnInit{
         product.name.toLowerCase().includes(inputValue.toLowerCase())
       ))
     }
+    
+  onProductSelected(selected: Product) {
+    this.estimateLine.product = selected;
+    //this.productSelected.emit({ lineIndex: this.index, product: selected });
+  }
+ /*updateEstimateLine(): void {
+      this.estimateLineChanged.emit({lineIndex: this.index, estimateLine : this.estimateLine});
+    }*/
+    /*selectProduct(e: any) {
+      if (e.target.checked)
+      this.estimateLine = { ...this.estimateLine, product: e.target.value };
+      console.log(this.estimateLine);
+      this.updateEstimateLine();
+    }*/
+
+    /*onOptionSelected(e: MatAutocompleteSelectedEvent): void {
+      const selectedOption = e.option.value;
+      this.estimateLine = { ...this.estimateLine, product: selectedOption };
+      console.log(this.estimateLine);
+      this.updateEstimateLine();
+    }*/
 
   /*
   addEstimateLine(): void {
@@ -118,10 +121,6 @@ export class CreateLineComponent implements OnInit{
 
 
 
-  onProductSelected(selected: Product) {
-    this.estimateLine.product = selected;
-    this.productSelected.emit({ lineIndex: this.index, product: selected });
-  }
 }
 
 

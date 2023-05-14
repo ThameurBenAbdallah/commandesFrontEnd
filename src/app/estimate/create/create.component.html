@@ -3,9 +3,9 @@
 <div style="margin-bottom: 10px;" *ngFor="let line of estimateLines; let i = index">
     <app-create-line [estimateLine]="line"
                     [index]="i"
-                    (estimateLineChanged)="handleEstimateLineChanged($event)"
+                    
                     (estimateLineDeleted)="handleEstimateLineDeleted($event)"
-                    (productSelected)="handleProductSelected($event.lineIndex, $event.product )">
+                    >
     </app-create-line>
   </div>
 <p>Total amount: {{ calculateTotalQuantity() }}</p>

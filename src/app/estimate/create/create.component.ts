@@ -77,9 +77,9 @@ export class CreateComponent implements OnInit {
   }
 
   verifier(): void {
-    alert(this.estimateLines[0].product.id);
+    console.log(JSON.stringify(this.estimateLines));
   }
-
+  /*
   handleEstimateLineChanged(event: { lineIndex: number, estimateLine: EstimateLine }): void {
     if (event.lineIndex !== -1) {
        this.estimateLines = [
@@ -88,16 +88,13 @@ export class CreateComponent implements OnInit {
         ...this.estimateLines.slice(event.lineIndex + 1)
       ];
     }
-  }
+  }*/
 
   handleEstimateLineDeleted(index: number): void {
     this.estimateLines.splice(index, 1);
   }
 
-  handleProductSelected(index: number, product: Product): void {
-    this.estimateLines[index].product = product;
-
-  }
+ 
 
   calculateTotalQuantity(): number {
     let total = 0;
