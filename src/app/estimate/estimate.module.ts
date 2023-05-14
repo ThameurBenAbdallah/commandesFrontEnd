@@ -24,8 +24,8 @@ import { MatInputModule } from '@angular/material/input';
     CreateComponent,
     DetailComponent,
     CreateLineComponent,
-       
-    
+
+
   ],
   imports: [
     CommonModule,
@@ -35,7 +35,7 @@ import { MatInputModule } from '@angular/material/input';
     MatAutocompleteModule,
     MatFormFieldModule,
     ReactiveFormsModule ,
-    MatInputModule   
+    MatInputModule
   ]
 })
 export class EstimateModule { }

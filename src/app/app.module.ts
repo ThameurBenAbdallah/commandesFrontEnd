@@ -15,6 +15,8 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
+
+
 @NgModule({
   declarations: [
     AppComponent
@@ -34,7 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     FormsModule,
     MatInputModule,
     BrowserAnimationsModule
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent]

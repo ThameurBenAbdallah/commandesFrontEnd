@@ -69,7 +69,7 @@ export class CreateComponent implements OnInit {
         estimateDate: new Date(Date.now())
       },
       discount: 0,
-      quantity: 0
+      quantity: 1
     };
 
     // Add the new estimate line to the array
@@ -77,18 +77,15 @@ export class CreateComponent implements OnInit {
   }
 
   verifier(): void {
-    alert(this.estimateLines[this.estimateLines.length-1]?.product.name);
+    alert(this.estimateLines[0].product.id);
   }
 
   handleEstimateLineChanged(event: { lineIndex: number, estimateLine: EstimateLine }): void {
-    // Update the corresponding line in the array
-  
     if (event.lineIndex !== -1) {
-      
-      this.estimateLines = [
-        ...this.estimateLines.slice(0, event.lineIndex),  
-        event.estimateLine,                            
-        ...this.estimateLines.slice(event.lineIndex + 1)  
+       this.estimateLines = [
+        ...this.estimateLines.slice(0, event.lineIndex),
+        event.estimateLine,
+        ...this.estimateLines.slice(event.lineIndex + 1)
       ];
     }
   }
@@ -99,5 +96,14 @@ export class CreateComponent implements OnInit {
 
   handleProductSelected(index: number, product: Product): void {
     this.estimateLines[index].product = product;
+
+  }
+
+  calculateTotalQuantity(): number {
+    let total = 0;
+    for (const line of this.estimateLines) {
+      total += line.quantity*line.product.price*(1+line.product.tax/100);
+    }
+    return total;
   }
 }
