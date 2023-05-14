@@ -20,16 +20,17 @@ export class HomeComponent implements OnInit{
 
   ngOnInit(): void {
     this.get();
-    
+
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('deleteModal')
     );
- 
-    
+
+
   }
 
   get() {
     this.productService.get().subscribe((data) => {
+      console.log(JSON.stringify(data))
       this.allProducts = data;
     });
   }

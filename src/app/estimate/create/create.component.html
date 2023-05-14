@@ -1,14 +1,14 @@
 <h2>Create Estimate</h2>
 
-<div *ngFor="let line of estimateLines; let i = index">
-    <app-create-line [estimateLine]="line" 
+<div style="margin-bottom: 10px;" *ngFor="let line of estimateLines; let i = index">
+    <app-create-line [estimateLine]="line"
                     [index]="i"
-                    (estimateLineChanged)="handleEstimateLineChanged($event)" 
+                    (estimateLineChanged)="handleEstimateLineChanged($event)"
                     (estimateLineDeleted)="handleEstimateLineDeleted($event)"
                     (productSelected)="handleProductSelected($event.lineIndex, $event.product )">
     </app-create-line>
   </div>
-  
+<p>Total amount: {{ calculateTotalQuantity() }}</p>
   <button (click)="addEstimateLine()">Add Line</button>
   <button (click)="verifier()">verifier</button>
 
