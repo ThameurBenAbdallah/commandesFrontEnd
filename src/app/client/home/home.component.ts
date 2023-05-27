@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {AfterViewInit, Component, DoCheck, ViewChild} from '@angular/core';
+import {MatSort, Sort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 declare var window: any;
 
@@ -10,7 +13,7 @@ declare var window: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent {
   allClients: Client[] = [];
   deleteModal: any;
   idTodelete: number = 0;
@@ -19,22 +22,37 @@ export class HomeComponent implements OnInit{
   constructor(
               private clientService: ClientService, 
               private route: ActivatedRoute,
-              private router:Router,){              }
+              private router:Router,private _liveAnnouncer: LiveAnnouncer){ 
+                this.sort=new MatSort
+               }
 
-  ngOnInit(): void {
-    this.get();
-    
-    this.deleteModal = new window.bootstrap.Modal(
-      document.getElementById('deleteModal')
-    );
- 
-    
+
+  @ViewChild(MatSort) sort: MatSort;
+  
+  ngAfterViewInit(): void {
+  this.dataSource.sort = this.sort;    
   }
+ 
+  ngOnInit(): void {
+   this.get();  
+  //  console.log(this.allClients)   
+   }
 
   get() {
     this.clientService.get().subscribe((data) => {
+      
       this.allClients = data;
+      console.log(this.allClients)
+      //this.dataSource = new MatTableDataSource(this.allClients);
+
     });
+  }
+  ngDoCheck() {
+    if (this.allClients.length>0) {
+      this.dataSource = new MatTableDataSource(this.allClients);
+      
+ 
+    }
   }
 
   openDeleteModal(id: number) {
@@ -50,5 +68,10 @@ export class HomeComponent implements OnInit{
       },
     });
   }
+
+  dataSource = new MatTableDataSource(this.allClients);
+
+  displayedColumns: string[] = ['id', 'name', 'surname', 'address', 'phone', 'edit','delete'];
+ 
 
 }

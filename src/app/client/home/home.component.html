@@ -1,58 +1,81 @@
-<div class="container">
-    <div class="row mt-2">
-        <div class="col col-md-4 offset-md-4">
-            <a class="btn btn-primary" routerLink="/products/create">Create</a>
-        </div>
-    </div>
-    <table class="table">
-        <!-- code hidden for display purpose -->
-    </table>
-</div>
-<div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Tax</th>
-                <th scope="col">Price</th>
-                <th scope="col">Category</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of allClients">
-                <th scope="row">{{ item.id }}</th>
-                <td>{{ item.name }}</td>
-                <td>{{ item.surname }}</td>
-                <td>{{ item.address }}</td>
-                <td>{{ item.phone }}</td>
-                <td>
-                    <div style="display: flex;">
-                    <a class="btn btn-primary" [routerLink]="['/products/edit', item.id]">Edit</a> |
-                    <button type="button" (click)="openDeleteModal(item.id)" class="btn btn-danger">Delete</button>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure to delete the item?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger" (click)="delete()">Confirm Delete</button>
-            </div>
-        </div>
-    </div>
-</div>
+<table mat-table [dataSource]="dataSource" matSort
+       class="mat-elevation-z8">
 
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by id"> Id </th>
+      <td mat-cell *matCellDef="let client"> {{client.id}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> Name </th>
+      <td mat-cell *matCellDef="let client"> {{client.name}} </td>
+    </ng-container>
+  
+    <!-- Surname Column -->
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Surname </th>
+      <td mat-cell *matCellDef="let client"> {{client.surname}} </td>
+    </ng-container>
+  
+    <!-- Address Column -->
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef> Address </th>
+      <td mat-cell *matCellDef="let client"> {{client.address}} </td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Phone </th>
+        <td mat-cell *matCellDef="let client"> {{client.phone}} </td>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let client">
+        <button mat-icon-button color="accent" >
+          Edit
+          
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let client">
+        <button mat-icon-button color="warn" (click)="openDeleteModal(client.id)" >
+          Delete
+          
+        </button>
+      </td>
+    </ng-container>
+
+      
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure to delete the item?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="delete()">Confirm Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

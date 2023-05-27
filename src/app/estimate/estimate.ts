@@ -6,5 +6,6 @@ export interface Estimate {
     id: number;
     client: Client;
     estimateDate: Date;
+    estimateLines: EstimateLine[]
               
 }

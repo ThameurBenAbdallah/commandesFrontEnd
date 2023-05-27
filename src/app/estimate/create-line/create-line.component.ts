@@ -19,13 +19,12 @@ export class CreateLineComponent implements OnInit{
 
     @Input() estimateLine!: EstimateLine ;
     @Input() index!: number ;
-    //@Output() estimateLineChanged = new EventEmitter<{lineIndex : number, estimateLine: EstimateLine}>();
     @Output() estimateLineDeleted = new EventEmitter<number>();
     products: Product[] = [];
     filteredOptions!: Observable<Product[]>;
     searchQuery: string = '';
     selectedProduct!: Product;
-    myControl = new FormControl('');
+  
 
     constructor(private productService: ProductService) {}
 
@@ -66,60 +65,9 @@ export class CreateLineComponent implements OnInit{
     
   onProductSelected(selected: Product) {
     this.estimateLine.product = selected;
-    //this.productSelected.emit({ lineIndex: this.index, product: selected });
+
   }
- /*updateEstimateLine(): void {
-      this.estimateLineChanged.emit({lineIndex: this.index, estimateLine : this.estimateLine});
-    }*/
-    /*selectProduct(e: any) {
-      if (e.target.checked)
-      this.estimateLine = { ...this.estimateLine, product: e.target.value };
-      console.log(this.estimateLine);
-      this.updateEstimateLine();
-    }*/
-
-    /*onOptionSelected(e: MatAutocompleteSelectedEvent): void {
-      const selectedOption = e.option.value;
-      this.estimateLine = { ...this.estimateLine, product: selectedOption };
-      console.log(this.estimateLine);
-      this.updateEstimateLine();
-    }*/
-
-  /*
-  addEstimateLine(): void {
-
-    const newEstimateLine: EstimateLine = this.estimateLineForm;
-    this.estimateLineAdded.emit(newEstimateLine);
-  }*/
-/*
-  searchProducts(): void {
-    this.productService.search(this.searchQuery).subscribe({
-      next: (data) => {
-        const filteredProducts = data;
-        this.filteredProducts = filteredProducts;
-      },
-      error: (error) => {
-        alert("There was an error finding products");
-        console.log(error);
-      }
-    });
-  }
-
-
-
-  onSearchChange(): void {
-  clearTimeout(this.searchTimeout);
-  this.searchTimeout = setTimeout(() => {
-    this.searchProducts();
-  }, 300);
-}*/
- /*onSearchChange(): void {
-
-    this.filterProducts(this.searchQuery)
-  }
-  */
-
-
+ 
 
 }
 

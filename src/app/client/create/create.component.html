@@ -1,26 +1,32 @@
+
 <div class="container">
-    <legend>Create Item</legend>
-    <form>
-        <div class="mb-3">
-            <label for="txtName" class="form-label">Name</label>
-            <input type="text" name="name" [(ngModel)]="clientForm.name" class="form-control" id="txtName" />
-        </div>
-        <div class="mb-3">
-            <label for="txtDescription" class="form-label">Description</label>
-            <input type="text" name="description" [(ngModel)]="clientForm.surname" class="form-control"
-                id="txtDescription" />
-        </div>
-        <div class="mb-3">
-            <label for="txtTax" class="form-label">Tax</label>
-            <input type="text" name="tax" [(ngModel)]="clientForm.address" class="form-control" id="txtTax" />
-        </div>
-        <div class="mb-3">
-            <label for="txtPrice" class="form-label">Price</label>
-            <input type="number" name="price" [(ngModel)]="clientForm.phone" class="form-control" id="txtPrice" />
-        </div>
+    <legend>Create a new client</legend>
+    <form (ngSubmit)="create()">
+        <mat-form-field appearance="fill">
+            <mat-label>Input</mat-label>
+            <input matInput  [(ngModel)] = "clientForm.name" name="name">
+            <mat-hint>Name</mat-hint>
+        </mat-form-field>
+            
 
-        
+        <mat-form-field appearance="fill" >
+            <mat-label>Input</mat-label >
+            <input matInput [(ngModel)] = "clientForm.surname" name="surname"/>
+            <mat-hint>Surname</mat-hint>
+        </mat-form-field>
 
-        <button type="button" (click)="create()" class="btn btn-primary">Create</button>
+        <mat-form-field appearance="fill" >
+        <mat-label>Input</mat-label>
+        <textarea matInput [(ngModel)] = "clientForm.address" name="address"></textarea>
+        <mat-hint>Address</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" >
+            <mat-label>Input</mat-label>
+            <input matInput [(ngModel)] = "clientForm.phone" name="phone"/>
+            <mat-hint>Phone</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Create</button>
     </form>
+    
 </div>

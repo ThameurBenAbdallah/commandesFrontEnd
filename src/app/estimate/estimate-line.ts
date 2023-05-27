@@ -4,9 +4,8 @@ import { Estimate } from "./estimate";
 export interface EstimateLine {
     id: number;
     product: Product;
-    estimate: Estimate;
     discount: number;
-    quantity: number;
+    estimateLineQuantity: number;
  
 }
     

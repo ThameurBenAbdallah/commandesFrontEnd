@@ -1,15 +1,27 @@
-<h2>Create Estimate</h2>
 
-<div style="margin-bottom: 10px;" *ngFor="let line of estimateLines; let i = index">
+<div style=" display: flex; flex-direction: column; -ms-flex-align: center;">
+  <h2>Create Estimate</h2>
+<mat-form-field class="example-full-width" appearance="fill" >
+  <mat-label>Select a client</mat-label>
+  <input type="text" matInput [(ngModel)]="selectedClient" [matAutocomplete]="auto"
+         (input)="filterClients($event)">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='onClientSelected($event.option.value)'>
+    <mat-option *ngFor="let option of filteredClients | async" [value]="option">
+      {{option.name}}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+</div>
+
+<div style="margin-bottom: 10px;display: flex; flex-direction: column; -ms-flex-align: center;" *ngFor="let line of estimateLines; let i = index">
     <app-create-line [estimateLine]="line"
                     [index]="i"
-                    
                     (estimateLineDeleted)="handleEstimateLineDeleted($event)"
                     >
     </app-create-line>
   </div>
 <p>Total amount: {{ calculateTotalQuantity() }}</p>
   <button (click)="addEstimateLine()">Add Line</button>
-  <button (click)="verifier()">verifier</button>
+  <button (click)="createEstimate()" >verifier </button>
 
 

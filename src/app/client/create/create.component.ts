@@ -18,6 +18,8 @@ export class CreateComponent implements OnInit{
     address: "",
     phone: ""
     };
+    
+    clients : Client[] = [];
 
   constructor(
     private clientService: ClientService,
@@ -31,9 +33,11 @@ export class CreateComponent implements OnInit{
  
   
   create() {
+    console.log(this.clientForm)
     this.clientService.create(this.clientForm).subscribe({
       next: (data) => {
-        this.router.navigate(['/clients']);
+        console.log(data)
+        this.router.navigate(['/client']);
       },
       error: (err) => {
         console.log(err);

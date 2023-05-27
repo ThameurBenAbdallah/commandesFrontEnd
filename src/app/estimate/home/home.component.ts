@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit{
   ngOnInit(): void {
     this.get();
     
+    
     this.deleteModal = new window.bootstrap.Modal(
       document.getElementById('deleteModal')
     );
@@ -38,13 +39,16 @@ export class HomeComponent implements OnInit{
   openDeleteModal(id: number) {
     this.idTodelete = id;
     this.deleteModal.show();
+    console.log(JSON.stringify(this.allEstimates[0]));
   }
 
   delete() {
+    
     this.estimateService.delete(this.idTodelete).subscribe({
       next: (data) => {
         this.allEstimates = this.allEstimates.filter(_ => _.id != this.idTodelete)
         this.deleteModal.hide();
+        
       },
     });
   }
